@@ -6,7 +6,8 @@
 ```
 bash install.sh
 ```
-to install the node modules for vue.
+to create springboot jar file, then
+install the node modules for vue.
 
 ### Compiles and hot-reloads the frontend code & starts the spring server for development 
 ```
@@ -21,3 +22,5 @@ bash run.sh
 bash stop.sh
 ```
 You will need to use your password for your machine. Because it uses sudo commands.
+
+### Enjoy!
