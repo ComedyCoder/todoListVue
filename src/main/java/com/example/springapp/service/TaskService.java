@@ -42,7 +42,7 @@ public class TaskService {
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         HashMap<String, Task>  taskMap = new HashMap();
         for (QueryDocumentSnapshot doc : documents) {
-            taskMap.put(doc.getId(), new Task(doc.getId(), (String) doc.get("name"), (String) doc.get("time"), (String) doc.get("icon")));
+            taskMap.put(doc.getId(), new Task(doc.getId(), (String) doc.get("name"), (String) doc.get("time"), (String) doc.get("icon"), (Boolean) doc.get("completed")));
         }
         System.out.println(taskMap.size() + " tasks were collected for the user");
         return taskMap;
@@ -51,5 +51,38 @@ public class TaskService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
          dbFirestore.collection(COL_NAME).document(docID).delete();
         return "Task ID "+ docID +" has been deleted";
+    }
+    public void updateStatus(String docID, boolean bool) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+       dbFirestore.collection(COL_NAME).document(docID).update("completed", bool);
+    }
+    public HashMap<String, Task> filterTasks(String filter) throws ExecutionException, InterruptedException {
+        HashMap<String, Task> allTasks = this.getAllTasks();
+        HashMap<String, Task> filteredTasks = new HashMap<>();
+        switch(filter) {
+            case "all":
+                return allTasks;
+            case "completed":
+                allTasks.forEach((key, value) -> {
+                  if(value.isCompleted())  {
+                      filteredTasks.put(key,value);
+                  }
+                });
+                break;
+            case "onGoing":
+                allTasks.forEach((key, value) -> {
+                    if(!value.isCompleted())  {
+                        filteredTasks.put(key,value);
+                    }
+                });
+                break;
+            case "important":
+                allTasks.forEach((key, value) -> {
+                    if(value.getIcon().equals("star"))  {
+                        filteredTasks.put(key,value);
+                    }
+                });
+        }
+        return filteredTasks;
     }
 }

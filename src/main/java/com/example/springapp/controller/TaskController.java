@@ -2,13 +2,9 @@ package com.example.springapp.controller;
 
 import com.example.springapp.model.Task;
 import com.example.springapp.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -21,7 +17,7 @@ public class TaskController {
 
     @PostMapping("/create")
     public String create(@RequestBody Task task) throws ExecutionException, InterruptedException {
-        return taskService.saveTaskDetails(new Task(task.getId(), task.getName(), task.getTime(), task.getIcon()));
+        return taskService.saveTaskDetails(new Task(task.getId(), task.getName(), task.getTime(), task.getIcon(), task.isCompleted()));
     }
     @GetMapping("/get")
     public String get(@RequestParam String docID) throws ExecutionException, InterruptedException {
@@ -35,11 +31,14 @@ public class TaskController {
     public String delete(@RequestParam String docID) throws ExecutionException, InterruptedException {
         return taskService.deleteTask(docID);
     }
-//    @PutMapping("/update")
-//    public String update(@RequestParam String docID, @RequestBody Task task) throws ExecutionException, InterruptedException {
-//        return taskService.updateTaskDetails(docID, task);
-//    }
 
-
+    @PutMapping("/updateStatus")
+    public void updateStatus(@RequestParam String docID, boolean bool) throws ExecutionException, InterruptedException {
+         taskService.updateStatus(docID, bool);
+    }
+    @GetMapping("/filterBy")
+    public HashMap<String, Task> filterBy(@RequestParam String filter) throws ExecutionException, InterruptedException {
+        return taskService.filterTasks(filter);
+    }
 }
 

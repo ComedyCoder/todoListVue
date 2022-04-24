@@ -22,6 +22,10 @@ public class Task {
     @Setter
     private String icon;
 
+    @Getter
+    @Setter
+    private boolean completed;
+
     @Override
     public String toString() {
         return "Task{" +
@@ -29,6 +33,7 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", time='" + time + '\'' +
                 ", icon='" + icon + '\'' +
+                ", completed=" + completed +
                 '}';
     }
 }

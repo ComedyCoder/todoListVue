@@ -4,13 +4,13 @@
 
 ## Project setup
 ```
-install.sh
+bash install.sh
 ```
 to install the node modules for vue.
 
 ### Compiles and hot-reloads the frontend code & starts the spring server for development 
 ```
-run.sh
+bash run.sh
 ```
 ### You should now be able to see the application at:
 
@@ -18,6 +18,6 @@ run.sh
 
 ### When finished run the script below to stop the processes on port 3000 & 8080
 ```
-stop.sh
+bash stop.sh
 ```
 You will need to use your password for your machine. Because it uses sudo commands.

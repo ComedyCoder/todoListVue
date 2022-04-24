@@ -20,7 +20,8 @@ export default {
   props: {
     selectedID: String,
     selectedName: String,
-    selectedIcon: String
+    selectedIcon: String,
+    selectedCompleted: Boolean,
   },
    methods: {
     clicked() {
@@ -28,7 +29,8 @@ export default {
       let id = this.selectedID;
       let time = this.createDateTime();
       let icon = this.selectedIcon;
-      this.$emit('addTask', {id, name, time, icon});
+      let completed = this.selectedCompleted;
+      this.$emit('addTask', {id, name, time, icon, completed});
     },
      createDateTime() {
        let date = new Date();
@@ -37,7 +39,7 @@ export default {
        let event = time + " : " + day;
        return event;
      }
-}
+  }
 
 }
 </script>
@@ -66,7 +68,6 @@ export default {
       border: none;
       border-bottom: 1px solid #ddd;
       color: #555;
-     
   }
 
 </style>

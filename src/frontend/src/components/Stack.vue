@@ -38,7 +38,7 @@ export default {
   display: inline-flex;
   justify-content: space-between;
   width: 40%;
-  margin: auto;
+  margin-left: 5%;
 }
 
 </style>
